@@ -30,7 +30,7 @@ Now I will add system-wide important packages: `git mc tmux vim` and for Guix al
 
 For Guix I have to run first (otherwise really bad things will happen - as `root` - it has its own cache!):
 
-Edit `/etc/config.scm` and apply changes from commit: b861cd5ae196467799c28367c0699682a1401351
+Edit `/etc/config.scm` and apply changes from commit: [b861cd5](https://github.com/hpaluch/guix-or-nix/commit/b861cd5ae196467799c28367c0699682a1401351)
 
 Then:
 
