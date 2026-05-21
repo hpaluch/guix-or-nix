@@ -61,3 +61,16 @@ For NixOS it is much easier:
 - apply changes with `nixos-rebuild switch`
 
 
+# TODO:
+
+Guix uses awful top (with weird red/brown colors), etc. NixOS does not suffer from that
+and I found workaround in its `/pkgs/os-specific/linux/procps-ng/default.nix` how it is done:
+```
+ # Too red; 8bit support for fixing https://github.com/NixOS/nixpkgs/issues/275220
+  configureFlags = [
+    "--disable-modern-top"
+    "--enable-watch8bit"
+  ]
+```
+TODO: apply also for guix...
+
