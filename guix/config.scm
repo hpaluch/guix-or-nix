@@ -9,8 +9,10 @@
 
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
-(use-modules (gnu))
+;; Note: "version-control" is not resolved for "git" from use-package-modules (due dash (-) in name?)
+(use-modules (gnu) (guix packages) (gnu packages version-control))
 (use-service-modules cups desktop networking ssh xorg)
+(use-package-modules mc tmux rsync vim)
 
 (operating-system
   (locale "en_US.utf8")
@@ -26,6 +28,9 @@
                   (home-directory "/home/user")
                   (supplementary-groups '("wheel" "netdev" "audio" "video")))
                 %base-user-accounts))
+
+  ;; add system wide package
+  (packages (append (list git mc rsync tmux vim) %base-packages))
 
   ;; Below is the list of system services.  To search for available
   ;; services, run 'guix system search KEYWORD' in a terminal.
