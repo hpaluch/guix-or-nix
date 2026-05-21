@@ -55,5 +55,9 @@ git version 2.54.0
 # Note: should run "reboot" to apply all changes...
 ```
 
+For NixOS it is much easier:
+- run as root `nano /etc/nixos/configuration.nix` (only editor available)
+- edit is as shown in  commit [e381804d](https://github.com/hpaluch/guix-or-nix/commit/e381804d4ec892b1eabd9b747f2dc647dafdce04)
+- apply changes with `nixos-rebuild switch`
 
 
