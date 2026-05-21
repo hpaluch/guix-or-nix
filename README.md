@@ -5,9 +5,8 @@ packages (I already use Guix package manager to replace broken/missing `audaciou
 
 I'm unable to decide, what is better, so I decided to spin 2 VMs
 
-1. VM Guix System (formerly known as GuixSD) with Xfce
-2. VM NixOS System with Xfce
-
+1. VM Guix System (formerly known as GuixSD) with Xfce using ISO: `guix-system-install-1.5.0.x86_64-linux.iso`
+2. VM NixOS System with Xfce using ISO: `latest-nixos-graphical-x86_64-linux.iso`
 
 Let's start!
 
