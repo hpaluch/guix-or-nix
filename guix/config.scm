@@ -1,7 +1,11 @@
 ;; /etc/config.scm for VM guix-home (Xfce)
 (use-modules (gnu) (guix packages) (srfi srfi-1))
 (use-service-modules cups desktop lightdm networking sddm ssh xorg)
-(use-package-modules chromium gnuzilla linux lsof mc music password-utils rsync spice tmux version-control vim)
+(use-package-modules admin chromium gnuzilla linux lsof mc music
+                     password-utils rsync spice tmux version-control vim)
+
+(define %cli-packages (list fastfetch-minimal git lsof mc rsync strace tmux vim))
+(define %gui-packages (list audacious keepass icedove icecat ungoogled-chromium virt-viewer))
 
 (operating-system
   (locale "en_US.utf8")
@@ -18,9 +22,8 @@
                   (supplementary-groups '("wheel" "netdev" "audio" "video")))
                 %base-user-accounts))
 
-  ;; add system wide package
-  (packages (cons* audacious keepass git icedove icecat lsof mc rsync
-                   strace tmux ungoogled-chromium vim virt-viewer %base-packages))
+  ;; add system wide packages
+  (packages (append %cli-packages %gui-packages %base-packages))
 
   ;; Below is the list of system services.  To search for available
   ;; services, run 'guix system search KEYWORD' in a terminal.
@@ -38,6 +41,7 @@
                  ;; from gnu/system/examples/plasma.tmpl
                  ;; Note: elogind is NOT actually removed,
                  ;;   but already added in above 'service elogind-service-type line!)
+                 ;;   because adding same service twice is error.
                  (remove (lambda (service)
                        (memq (service-kind service)
                              (list gdm-service-type sddm-service-type elogind-service-type)))
