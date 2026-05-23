@@ -2,10 +2,12 @@
 (use-modules (gnu) (guix packages) (srfi srfi-1))
 (use-service-modules cups desktop lightdm networking sddm ssh xorg)
 (use-package-modules admin chromium gnuzilla linux lsof mc music
-                     password-utils rsync spice tmux version-control vim)
+                     password-utils rsync spice tmux version-control video vim wine xfce)
 
 (define %cli-packages (list fastfetch-minimal git lsof mc rsync strace tmux vim))
-(define %gui-packages (list audacious keepass icedove icecat ungoogled-chromium virt-viewer))
+(define %gui-packages (list audacious keepass icedove icecat mpv ungoogled-chromium virt-viewer vlc wine))
+(define %xfce-plugins (list xfce4-cpufreq-plugin xfce4-cpugraph-plugin
+           xfce4-diskperf-plugin xfce4-netload-plugin xfce4-xkb-plugin))
 
 (operating-system
   (locale "en_US.utf8")
@@ -23,7 +25,7 @@
                 %base-user-accounts))
 
   ;; add system wide packages
-  (packages (append %cli-packages %gui-packages %base-packages))
+  (packages (append %cli-packages %gui-packages %base-packages %xfce-plugins))
 
   ;; Below is the list of system services.  To search for available
   ;; services, run 'guix system search KEYWORD' in a terminal.
