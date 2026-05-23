@@ -30,10 +30,12 @@ Password:
  + nscd
  + ntpd
  + pam
+ + qemu-guest-agent
  + root
  + root-file-system
  + ssh-daemon
- + [2msshd-4[0m
+ + [2msshd-1[0m
+ + [2msshd-2[0m
  + swap-85aac587-82e7-453a-9a5d-0221801078ab
  + system-log
  + term-console

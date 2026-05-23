@@ -1,6 +1,6 @@
 ;; /etc/config.scm for VM guix-home (Xfce)
 (use-modules (gnu) (guix packages) (srfi srfi-1))
-(use-service-modules cups desktop lightdm networking sddm ssh xorg)
+(use-service-modules cups desktop lightdm networking sddm ssh virtualization xorg)
 (use-package-modules admin chromium gnuzilla linux lsof mc music
                      password-utils rsync spice tmux version-control video vim wine xfce)
 
@@ -8,6 +8,12 @@
 (define %gui-packages (list audacious keepass icedove icecat mpv ungoogled-chromium virt-viewer vlc wine))
 (define %xfce-plugins (list xfce4-cpufreq-plugin xfce4-cpugraph-plugin
            xfce4-diskperf-plugin xfce4-netload-plugin xfce4-xkb-plugin))
+
+;; services needed only when running as specific Guest VM
+(define %guest-services (if (file-exists? "/dev/virtio-ports/org.qemu.guest_agent.0")
+                            (list (service qemu-guest-agent-service-type))
+                            (list )))
+(define %my-desktop-services (append %guest-services %desktop-services))
 
 (operating-system
   (locale "en_US.utf8")
@@ -47,7 +53,7 @@
                  (remove (lambda (service)
                        (memq (service-kind service)
                              (list gdm-service-type sddm-service-type elogind-service-type)))
-                     %desktop-services)))
+                     %my-desktop-services)))
   (bootloader (bootloader-configuration
                 (bootloader grub-efi-bootloader)
                 (targets (list "/boot/efi"))
