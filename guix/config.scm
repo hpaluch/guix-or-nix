@@ -1,17 +1,6 @@
-;; This is an operating system configuration generated
-;; by the graphical installer.
-;;
-;; Once installation is complete, you can learn and modify
-;; this file to tweak the system configuration, and pass it
-;; to the 'guix system reconfigure' command to effect your
-;; changes.
-
-
-;; Indicate which modules to import to access the variables
-;; used in this configuration.
-;; Note: "version-control" is not resolved for "git" from use-package-modules (due dash (-) in name?)
-(use-modules (gnu) (guix packages))
-(use-service-modules cups desktop networking ssh xorg)
+;; /etc/config.scm for VM guix-home (Xfce)
+(use-modules (gnu) (guix packages) (srfi srfi-1))
+(use-service-modules cups desktop lightdm networking sddm ssh xorg)
 (use-package-modules linux mc tmux rsync version-control vim)
 
 (operating-system
@@ -35,18 +24,22 @@
   ;; Below is the list of system services.  To search for available
   ;; services, run 'guix system search KEYWORD' in a terminal.
   (services
-   (append (list (service xfce-desktop-service-type)
+   (cons* (service xfce-desktop-service-type)
+                 (service lightdm-service-type)
 
                  ;; To configure OpenSSH, pass an 'openssh-configuration'
                  ;; record as a second argument to 'service' below.
                  (service openssh-service-type)
                  (service cups-service-type)
-                 (set-xorg-configuration
-                  (xorg-configuration (keyboard-layout keyboard-layout))))
+                 ;; (set-xorg-configuration (xorg-configuration (keyboard-layout keyboard-layout)))
 
-           ;; This is the default list of services we
-           ;; are appending to.
-           %desktop-services))
+                 ;; from gnu/system/examples/plasma.tmpl
+                 ;; Remove GDM if it's among %DESKTOP-SERVICES; on other
+                 ;; architectures, %DESKTOP-SERVICES contains SDDM instead.
+                 (remove (lambda (service)
+                       (memq (service-kind service)
+                             (list gdm-service-type sddm-service-type)))
+                     %desktop-services)))
   (bootloader (bootloader-configuration
                 (bootloader grub-efi-bootloader)
                 (targets (list "/boot/efi"))

@@ -25,6 +25,7 @@ Password:
  + file-system-/var/lib/gdm
  + file-systems
  + guix-daemon
+ + lightdm
  + loopback
  + nscd
  + ntpd
@@ -32,7 +33,7 @@ Password:
  + root
  + root-file-system
  + ssh-daemon
- + [2msshd-6[0m
+ + [2msshd-4[0m
  + swap-85aac587-82e7-453a-9a5d-0221801078ab
  + system-log
  + term-console
@@ -51,7 +52,6 @@ Password:
  + user-processes
  + virtual-terminal
  + wpa-supplicant
- + xorg-server
 [1mRunning timers:
 [0m + log-cleanup
  + log-rotation
