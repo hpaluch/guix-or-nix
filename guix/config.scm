@@ -1,7 +1,7 @@
 ;; /etc/config.scm for VM guix-home (Xfce)
 (use-modules (gnu) (guix packages) (srfi srfi-1))
 (use-service-modules cups desktop lightdm networking sddm ssh xorg)
-(use-package-modules linux mc tmux rsync version-control vim)
+(use-package-modules linux lsof mc rsync tmux version-control vim)
 
 (operating-system
   (locale "en_US.utf8")
@@ -19,7 +19,7 @@
                 %base-user-accounts))
 
   ;; add system wide package
-  (packages (append (list git mc rsync strace tmux vim) %base-packages))
+  (packages (append (list git lsof mc rsync strace tmux vim) %base-packages))
 
   ;; Below is the list of system services.  To search for available
   ;; services, run 'guix system search KEYWORD' in a terminal.
@@ -32,13 +32,14 @@
                  (service openssh-service-type)
                  (service cups-service-type)
                  ;; (set-xorg-configuration (xorg-configuration (keyboard-layout keyboard-layout)))
-
+                 (service elogind-service-type
+                        (elogind-configuration (idle-action 'ignore)))
                  ;; from gnu/system/examples/plasma.tmpl
-                 ;; Remove GDM if it's among %DESKTOP-SERVICES; on other
-                 ;; architectures, %DESKTOP-SERVICES contains SDDM instead.
+                 ;; Note: elogind is NOT actually removed,
+                 ;;   but already added in above 'service elogind-service-type line!)
                  (remove (lambda (service)
                        (memq (service-kind service)
-                             (list gdm-service-type sddm-service-type)))
+                             (list gdm-service-type sddm-service-type elogind-service-type)))
                      %desktop-services)))
   (bootloader (bootloader-configuration
                 (bootloader grub-efi-bootloader)
