@@ -1,7 +1,7 @@
 ;; /etc/config.scm for VM guix-home (Xfce)
 (use-modules (gnu) (guix packages) (srfi srfi-1))
 (use-service-modules cups desktop lightdm networking sddm ssh xorg)
-(use-package-modules linux lsof mc rsync tmux version-control vim)
+(use-package-modules chromium gnuzilla linux lsof mc music password-utils rsync spice tmux version-control vim)
 
 (operating-system
   (locale "en_US.utf8")
@@ -19,7 +19,8 @@
                 %base-user-accounts))
 
   ;; add system wide package
-  (packages (append (list git lsof mc rsync strace tmux vim) %base-packages))
+  (packages (cons* audacious keepass git icedove icecat lsof mc rsync
+                   strace tmux ungoogled-chromium vim virt-viewer %base-packages))
 
   ;; Below is the list of system services.  To search for available
   ;; services, run 'guix system search KEYWORD' in a terminal.
