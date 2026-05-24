@@ -1,10 +1,10 @@
 ;; /etc/config.scm for VM guix-home (Xfce)
 (use-modules (gnu) (guix packages) (srfi srfi-1))
 (use-service-modules cups desktop lightdm networking sddm ssh virtualization xorg)
-(use-package-modules admin chromium gnuzilla linux lsof mc music
-                     password-utils rsync spice tmux version-control video vim wine xfce)
+(use-package-modules admin chromium gnuzilla linux lsof mc music ncdu
+                     password-utils rsync spice texinfo tmux version-control video vim wine xfce)
 
-(define %cli-packages (list fastfetch-minimal git lsof mc rsync strace tmux vim))
+(define %cli-packages (list fastfetch-minimal git lsof mc ncdu pinfo rsync strace tmux vim))
 (define %gui-packages (list audacious keepass icedove icecat mpv ungoogled-chromium virt-viewer vlc wine))
 (define %xfce-plugins (list xfce4-cpufreq-plugin xfce4-cpugraph-plugin
            xfce4-diskperf-plugin xfce4-netload-plugin xfce4-xkb-plugin))
